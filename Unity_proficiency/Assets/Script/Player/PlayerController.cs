@@ -71,7 +71,11 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
     }
 
-
+    public void AddMoveSpeed(float num)
+    {
+        moveSpeed += num;
+    }
+    
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         // 문제점 발생. 키을 입력받고 계속 움직임.

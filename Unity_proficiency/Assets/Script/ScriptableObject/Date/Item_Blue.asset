@@ -21,6 +21,6 @@ MonoBehaviour:
   maxStackAmount: 12
   consumbales:
   - tyep: 0
-    value: 15
+    value: 200
   - tyep: 0
     value: 0

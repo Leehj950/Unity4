@@ -14,7 +14,6 @@ public class TrapPad : MonoBehaviour
         InvokeRepeating("DealDamage", 0, damageRate);
     }
 
-
     void DealDamage()
     {
         for(int i = 0; i < things.Count; i++) 

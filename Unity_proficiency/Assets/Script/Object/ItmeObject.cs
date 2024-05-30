@@ -6,7 +6,6 @@ public interface IInteractable
 {
     public string GetInteractPrompt();
     public void OnInteract();
-
 }
 
 
@@ -27,4 +26,6 @@ public class ItmeObject : MonoBehaviour , IInteractable
         CharacterManager.Instance.Player.addItem?.Invoke();
         Destroy(gameObject);
     }
+
+    
 }
