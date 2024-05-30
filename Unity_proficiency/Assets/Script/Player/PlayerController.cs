@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     private new Rigidbody rigidbody;
     private int jumpCount = 0;
     private int maxJumpCount = 2;
+    private bool isMove;
+    public float useStamina;
+
+    public bool IsMove { get { return isMove; } }
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -36,7 +41,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (CharacterManager.Instance.Player.condition.StopMove() == true)
+        {
+            Move();
+        }
     }
 
 
@@ -50,8 +58,8 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
         dir *= moveSpeed;
         dir.y = rigidbody.velocity.y;
-
         rigidbody.velocity = dir;
+
     }
 
     void CameraLook()
@@ -70,10 +78,12 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started)
         {
             curMovementInput = context.ReadValue<Vector2>();
+            isMove = true;
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
+            isMove = false;
         }
     }
 
@@ -84,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJamp(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && (IsGrounded()|| jumpCount < maxJumpCount ))
+        if (context.phase == InputActionPhase.Started && (IsGrounded() || jumpCount < maxJumpCount))
         {
             rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
             jumpCount++;
@@ -103,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            Debug.DrawRay(rays[i].origin, rays[i].direction * 0.5f, Color.red, 1f);  
+            Debug.DrawRay(rays[i].origin, rays[i].direction * 0.5f, Color.red, 1f);
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
                 jumpCount = 0;

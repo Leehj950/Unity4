@@ -34,7 +34,7 @@ public class Interaction : MonoBehaviour
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2) );
             RaycastHit hit;
 
-            Debug.DrawRay(ray.origin, ray.direction * maxCheckDistance, Color.red, 15);
+            //Debug.DrawRay(ray.origin, ray.direction * maxCheckDistance, Color.red, 15);
             if (Physics.Raycast(ray, out hit, maxCheckDistance, mlayerMask))
             {
                 if (hit.collider.gameObject != curlnteractGameObject)
